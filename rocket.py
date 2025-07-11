@@ -4,24 +4,28 @@ class Rocket(turtle.Turtle):
     def __init__(self, image_file="rkt_resized.gif"):
         super().__init__()  # Initialize the Turtle superclass
 
+        # Get the current screen instead of creating a new one
         screen = turtle.Screen()
-        screen.title("Rocket Animation")
-        screen.bgcolor("cyan")
 
         # Register the custom image
-        screen.addshape(image_file)
-
-        # Set this turtle's shape to the custom image
-        self.shape(image_file)
+        try:
+            screen.addshape(image_file)
+            # Set this turtle's shape to the custom image
+            self.shape(image_file)
+        except turtle.TurtleGraphicsError:
+            # Use default shape if image fails
+            self.shape("triangle")
+            self.color("white")
+        
         self.penup()
 
     def move_left(self, distance):
         """Move the rocket left by a specified distance."""
-        self.setheading(0)
+        self.setheading(180)
         self.forward(distance)
     def move_right(self, distance):
         """Move the rocket right by a specified distance."""
-        self.setheading(180)
+        self.setheading(0)
         self.forward(distance)
     def bullet_fire(self):
         print('bullet is fired')

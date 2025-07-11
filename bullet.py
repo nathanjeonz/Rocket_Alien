@@ -22,9 +22,9 @@ class Control_bullet():
 
 
     def move_bullets(self,speed,end): # while loop keep on moving
-        for b in self.bullets:
+        for b in self.bullets[:]:  # Use slice to avoid modification during iteration
             b.forward(speed)
-            # if bullter will corss 800 
+            # if bullet will cross end boundary
             if b.ycor()>=end:
                 b.hideturtle()
                 self.bullets.remove(b)
