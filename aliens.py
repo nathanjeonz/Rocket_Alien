@@ -22,6 +22,17 @@ class AlienGroup():
         if alien in self.Aliens:
             alien.hideturtle()
             self.Aliens.remove(alien)
+    
+    def get_random_alien(self):
+        """Get a random alien for firing bullets"""
+        if self.Aliens:
+            return random.choice(self.Aliens)
+        return None
+    
+    def move_down(self, distance):
+        """Move all aliens down by specified distance"""
+        for alien in self.Aliens:
+            alien.sety(alien.ycor() - distance)
 
 
         

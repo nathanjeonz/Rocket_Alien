@@ -1,31 +1,30 @@
 import turtle
 
 class Bullet(turtle.Turtle):
-    def __init__(self,color="red", shape="circle", size=1):
+    def __init__(self, color="red", shape="circle", size=1, direction=90):
         super().__init__()
         self.color(color)
         self.shape(shape)
         self.shapesize(size)
         self.penup()
         self.speed(0)  # Set the speed to the fastest
-        self.setheading(90)  # Set the initial heading to up
+        self.setheading(direction)  # Set the initial heading
 
 class Control_bullet():
     def __init__(self):
         self.bullets = []
 
-    def make_bullet(self,x,y):# when space is pressed then call this
-        if len(self.bullets)<3:
-            b = Bullet()
-            b.setposition(x,y)
+    def make_bullet(self, x, y, color="red", direction=90):# when space is pressed then call this
+        if len(self.bullets) < 3:
+            b = Bullet(color=color, direction=direction)
+            b.setposition(x, y)
             self.bullets.append(b)
 
-
-    def move_bullets(self,speed,end): # while loop keep on moving
+    def move_bullets(self, speed, end_top, end_bottom=-400): # while loop keep on moving
         for b in self.bullets[:]:  # Use slice to avoid modification during iteration
             b.forward(speed)
-            # if bullet will cross end boundary
-            if b.ycor()>=end:
+            # if bullet will cross boundaries
+            if b.ycor() >= end_top or b.ycor() <= end_bottom:
                 b.hideturtle()
                 self.bullets.remove(b)
 
